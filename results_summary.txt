@@ -1,0 +1,11 @@
+AgroX Hackathon 2025 Results Summary
+========================================
+
+Model accuracy: 72.50%
+
+Most important features:
+3. Genome_size: 0.229
+8. Salinity_tolerance: 0.222
+9. Disease_resistance: 0.209
+7. Drought_tolerance: 0.193
+1. Perenniality: 0.041

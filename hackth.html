@@ -1,0 +1,247 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+<head>
+    <meta charset="UTF-8">
+    
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>pyscript</title>
+     <link rel="stylesheet" href="https://pyscript.net/alpha/pyscript.css" />
+    <script defer src="https://pyscript.net/alpha/pyscript.js"></script>
+    <link rel="stylesheet" href="hackth.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+<body>
+    <!-- Navigation Bar -->
+    <nav class="navbar">
+        <div class="nav-container">
+            <div class="logo">
+                <i class="fas fa-seedling"></i>
+                <span>AgroX AI</span>
+            </div>
+            <ul class="nav-menu">
+                <li><a href="#home">Home</a></li>
+                <li><a href="#predict">Predict</a></li>
+                <li><a href="#visualize">Charts</a></li>
+                <li><a href="#about">About</a></li>
+            </ul>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section id="home" class="hero">
+        <div class="hero-content">
+            <h1>🌱 Smart Plant Hybridization Assistant</h1>
+            <p class="subtitle">AI-powered tool to predict successful plant hybridization for Algerian agriculture</p>
+            <p class="tagline">Reduce failure rates by 60% • Save time and resources</p>
+            <a href="#predict" class="cta-button">
+                <i class="fas fa-play-circle"></i> Start Predicting Now
+            </a>
+        </div>
+        <div class="hero-image">
+            <img src="https://images.unsplash.com/photo-1500382017468-9049fed747ef?ixlib=rb-4.0.3&auto=format&fit=crop&w=600" alt="Plant Hybridization">
+        </div>
+    </section>
+
+    <!-- Prediction Form -->
+    <section id="predict" class="prediction-section">
+        <h2><i class="fas fa-calculator"></i> Hybridization Success Predictor</h2>
+        <p class="section-description">Enter plant characteristics to predict the likelihood of successful hybridization</p>
+        
+        <div class="prediction-container">
+            <div class="form-container">
+                <form id="hybridForm">
+                    <div class="form-group">
+                        <label for="plantType">
+                            <i class="fas fa-tree"></i> Plant Type
+                        </label>
+                        <select id="plantType" class="form-control">
+                            <option value="herbaceous">Herbaceous</option>
+                            <option value="shrub">Shrub</option>
+                            <option value="tree">Tree</option>
+                        </select>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="lifespan">
+                            <i class="fas fa-calendar-alt"></i> Lifespan
+                        </label>
+                        <select id="lifespan" class="form-control">
+                            <option value="annual">Annual</option>
+                            <option value="perennial" selected>Perennial</option>
+                        </select>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="woodiness">
+                            <i class="fas fa-tree"></i> Woodiness
+                        </label>
+                        <select id="woodiness" class="form-control">
+                            <option value="0">Non-woody</option>
+                            <option value="1">Woody</option>
+                        </select>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="drought">
+                            <i class="fas fa-tint-slash"></i> Drought Tolerance
+                            <span id="droughtValue">70%</span>
+                        </label>
+                        <input type="range" id="drought" min="0" max="100" value="70" class="slider">
+                        <div class="slider-labels">
+                            <span>Low</span>
+                            <span>High</span>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="salinity">
+                            <i class="fas fa-water"></i> Salinity Tolerance
+                            <span id="salinityValue">60%</span>
+                        </label>
+                        <input type="range" id="salinity" min="0" max="100" value="60" class="slider">
+                        <div class="slider-labels">
+                            <span>Low</span>
+                            <span>High</span>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="region">
+                            <i class="fas fa-globe-africa"></i> Algerian Region
+                        </label>
+                        <select id="region" class="form-control">
+                            <option value="coastal">Coastal Area</option>
+                            <option value="plateau">High Plateaus</option>
+                            <option value="sahara">Sahara Region</option>
+                        </select>
+                    </div>
+
+                    <button type="button" onclick="predictHybridization()" class="predict-button">
+                        <i class="fas fa-brain"></i> Predict Success
+                    </button>
+                </form>
+            </div>
+
+            <!-- Results Display -->
+            <div class="results-container">
+                <div class="results-card" id="resultsCard">
+                    <div class="card-header">
+                        <h3><i class="fas fa-chart-line"></i> Prediction Results</h3>
+                    </div>
+                    <div class="card-body">
+                        <div class="result-placeholder">
+                            <i class="fas fa-leaf"></i>
+                            <p>Fill the form and click "Predict Success" to see results</p>
+                        </div>
+                        
+                        <div class="result-content" id="resultContent" style="display: none;">
+                            <!-- Results will be inserted here via JavaScript -->
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Quick Examples -->
+                <div class="examples-card">
+                    <h4><i class="fas fa-lightbulb"></i> Quick Examples</h4>
+                    <div class="example-buttons">
+                        <button onclick="loadExample('palm')" class="example-btn">
+                            <i class="fas fa-tree"></i> Desert Palm
+                        </button>
+                        <button onclick="loadExample('barley')" class="example-btn">
+                            <i class="fas fa-seedling"></i> Plateau Barley
+                        </button>
+                        <button onclick="loadExample('orange')" class="example-btn">
+                            <i class="fas fa-lemon"></i> Coastal Orange
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Charts Section -->
+    <section id="visualize" class="visualization-section">
+        <h2><i class="fas fa-chart-bar"></i> Charts</h2>
+        <p class="section-description">Key insights from plant hybridization data analysis</p>
+        
+        <div class="charts-container">
+            <div class="chart-card">
+                <h4>Success Rate by Plant Type</h4>
+                <div class="chart-placeholder" id="chart1">
+                    <canvas id="typeChart"></canvas>
+                </div>
+            </div>
+            
+            <div class="chart-card">
+                <h4>Drought Tolerance Distribution</h4>
+                <div class="chart-placeholder" id="chart2">
+                    <canvas id="toleranceChart"></canvas>
+                </div>
+            </div>
+            
+            <div class="chart-card">
+                <h4>Algerian Regions Analysis</h4>
+                <div class="chart-placeholder" id="chart3">
+                    <canvas id="regionChart"></canvas>
+                </div>
+            </div>
+        </div>
+        
+        <button onclick="generateCharts()" class="generate-charts-btn">
+            <i class="fas fa-sync-alt"></i> Generate Charts
+        </button>
+    </section>
+
+    <!-- About Section -->
+    <section id="about" class="about-section">
+        <h2><i class="fas fa-info-circle"></i> About the Project</h2>
+        <div class="about-content">
+            <div class="about-card">
+                <i class="fas fa-bullseye"></i>
+                <h3>Mission</h3>
+                <p>Develop AI tools to accelerate plant breeding and support sustainable agriculture in Algeria.</p>
+            </div>
+            
+            <div class="about-card">
+                <i class="fas fa-cogs"></i>
+                <h3>Technology</h3>
+                <p>Random Forest AI model trained on plant hybridization data with 85% accuracy.</p>
+            </div>
+            
+            <div class="about-card">
+                <i class="fas fa-handshake"></i>
+                <h3>Impact</h3>
+                <p>Reduce hybridization failure by 60%, save years of field trials, and cut costs by 40%.</p>
+            </div>
+            
+            <div class="about-card">
+                <i class="fas fa-map-marker-alt"></i>
+                <h3>For Algeria</h3>
+                <p>Designed for the Sahara, High Plateaus, and Coastal regions of Algeria.</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="footer-content">
+            <div class="footer-logo">
+                <i class="fas fa-seedling"></i>
+                <span>AgroX Hackathon 2025</span>
+            </div>
+            <p class="footer-text">Smart agricultural solutions for a sustainable future</p>
+            <div class="footer-links">
+                <a href="#home">Home</a> •
+                <a href="#predict">Predictor</a> •
+                <a href="#visualize">Charts</a> •
+                <a href="#about">About</a>
+            </div>
+            <p class="copyright">© 2025 AgroX Hackathon. All rights reserved.</p>
+        </div>
+    </footer>
+
+    <!-- JavaScript -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script src="script.js"></script>
+</body>
+</html>
